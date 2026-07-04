@@ -26,7 +26,14 @@ const statusDot = document.getElementById('statusDot');
 const statusText = document.getElementById('statusText');
 const statusDesc = document.getElementById('statusDesc');
 
-async function updateServerStatus() {
+async function updateServerStatus(isFirstLoad = false) {
+  // kasih tanda lagi loading cuma pas pertama kali buka halaman,
+  // biar keliatan jelas prosesnya jalan (bukan macet) tanpa bikin kedip tiap auto-refresh
+  if (isFirstLoad) {
+    if (onlineCountEl) onlineCountEl.textContent = 'Memuat...';
+    if (statusDesc) statusDesc.textContent = 'Mengecek status server...';
+  }
+
   try {
     const res = await fetch(`https://api.mcsrvstat.us/3/${SERVER_IP}`);
     const data = await res.json();
@@ -60,8 +67,8 @@ async function updateServerStatus() {
 }
 
 if (onlineCountEl || statusDot) {
-  updateServerStatus();
-  setInterval(updateServerStatus, 60000); // refresh tiap 60 detik
+  updateServerStatus(true);
+  setInterval(() => updateServerStatus(false), 60000); // refresh tiap 60 detik
 }
 
 // ===== mobile nav toggle =====
