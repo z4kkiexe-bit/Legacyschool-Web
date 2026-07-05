@@ -71,7 +71,76 @@ if (onlineCountEl || statusDot) {
   setInterval(() => updateServerStatus(false), 60000); // refresh tiap 60 detik
 }
 
-// ===== mobile nav toggle =====
+// ===== dev credit: 3D skin head (skinview3d) + popup card =====
+const devAvatarBtn = document.getElementById('devAvatarBtn');
+const devCard = document.getElementById('devCard');
+const devSkinCanvas = document.getElementById('devSkinCanvas');
+
+// klik avatar buka/tutup card info developer
+if (devAvatarBtn && devCard) {
+  devAvatarBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    devCard.classList.toggle('is-open');
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!devCard.contains(e.target) && e.target !== devAvatarBtn) {
+      devCard.classList.remove('is-open');
+    }
+  });
+}
+
+// render kepala 3D pakai skinview3d, di-lazy-load SETELAH halaman selesai dimuat
+// (biar library ~500KB ini nggak ngerem loading konten utama / SEO performance)
+if (devSkinCanvas) {
+  function initDevSkinViewer() {
+    const viewer = new skinview3d.SkinViewer({
+      canvas: devSkinCanvas,
+      width: 56,
+      height: 56,
+      skin: 'skin-zakki.png',
+    });
+
+    viewer.controls.enableZoom = false;
+    viewer.controls.enableRotate = false;
+    viewer.controls.enablePan = false;
+    viewer.autoRotate = false;
+    viewer.zoom = 1.7; // zoom in biar kepala kelihatan penuh di kotak kecil
+    viewer.camera.position.set(0, 2, 20); // fokus kamera sejajar kepala
+
+    // sembunyiin badan/tangan/kaki, sisain kepala doang
+    const { skin } = viewer.playerObject;
+    skin.body.visible = false;
+    skin.leftArm.visible = false;
+    skin.rightArm.visible = false;
+    skin.leftLeg.visible = false;
+    skin.rightLeg.visible = false;
+
+    // animasi noleh halus (lerp) ke arah target tiap hover, bukan snap langsung
+    let targetY = 0;
+    let currentY = 0;
+    (function animate() {
+      currentY += (targetY - currentY) * 0.12;
+      skin.head.rotation.y = currentY;
+      requestAnimationFrame(animate);
+    })();
+
+    // noleh ke kiri 45 derajat pas di-hover/tap.
+    // Kalau arahnya kebalik (malah noleh ke kanan), tinggal ganti jadi -Math.PI / 4
+    const TURN_ANGLE = Math.PI / 4;
+    devAvatarBtn.addEventListener('mouseenter', () => { targetY = TURN_ANGLE; });
+    devAvatarBtn.addEventListener('mouseleave', () => { targetY = 0; });
+    devAvatarBtn.addEventListener('touchstart', () => { targetY = targetY === 0 ? TURN_ANGLE : 0; }, { passive: true });
+  }
+
+  window.addEventListener('load', () => {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/skinview3d@3.4.1/bundles/skinview3d.bundle.js';
+    script.defer = true;
+    script.onload = initDevSkinViewer;
+    document.body.appendChild(script);
+  });
+}
 const navToggle = document.getElementById('navToggle');
 const navMenu = document.getElementById('navMenu');
 
