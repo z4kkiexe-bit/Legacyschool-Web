@@ -386,7 +386,7 @@ ul { list-style: none; }
   height: 100%;
   object-fit: cover;
   z-index: 0;
-  filter: blur(8px) brightness(1.02); /* nyamarin foto low-res biar nggak pecah keliatan */
+  filter: blur(4px) brightness(1.02); /* nyamarin foto low-res biar nggak pecah keliatan */
   transform: scale(1.08); /* biar tepi yang keblur nggak nampilin garis kosong */
 }
 
@@ -483,10 +483,67 @@ ul { list-style: none; }
 .event-card__info h3 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
 .event-card__info p { font-size: 13px; color: var(--text-muted); }
 
-/* =========================================================
-   RANK & KELAS — bright border, dark fill (per referensi 2)
-   ========================================================= */
+
 .rank { background: var(--bg-soft); }
+/* ===== info tambahan ===== */
+.info-extra { background: var(--bg-soft); }
+
+.info-extra__subtitle {
+  text-align: center;
+  max-width: 560px;
+  margin: -18px auto 30px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.info-extra__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.info-extra__item {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: var(--shadow-card);
+}
+
+.info-extra__cmd {
+  flex-shrink: 0;
+  font-family: var(--font-pixel);
+  font-size: 10.5px;
+  line-height: 1.4;
+  color: var(--red);
+  background: var(--red-soft);
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+}
+
+.info-extra__item p {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+@media (max-width: 860px) {
+  .info-extra__grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .info-extra__item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .info-extra__cmd { white-space: normal; }
+}
+
 .kelas { background: #fff; }
 
 .rank-grid, .kelas-grid { display: grid; gap: 18px; }
@@ -520,7 +577,7 @@ ul { list-style: none; }
   margin-top: 6px;
 }
 
-/* bright border / dark colored fill pairs */
+
 .rank-card--osis    { border-color: var(--purple-b); background: var(--purple-f); }
 .rank-card--unggul  { border-color: var(--purple2-b); background: var(--purple2-f); }
 .rank-card--teladan { border-color: var(--green-b); background: var(--green-f); }
@@ -542,7 +599,7 @@ ul { list-style: none; }
 .rank-card--fav .rank-card__tag     { background: rgba(95,168,245,0.16); color: var(--blue-b); border: 1px solid var(--blue-b); }
 .rank-card--elite .rank-card__tag   { background: rgba(242,104,92,0.16); color: var(--red-b); border: 1px solid var(--red-b); }
 
-/* kelas cards: same bright-border / dark-fill treatment */
+
 .kelas-card {
   border-radius: var(--radius-md);
   overflow: hidden;
