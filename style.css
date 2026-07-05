@@ -568,6 +568,30 @@ ul { list-style: none; }
 .rank-card__sub { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.75; margin-bottom: 4px; }
 .rank-card__desc { font-size: 12.5px; opacity: 0.85; flex-grow: 1; }
 
+.rank-card__features {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex-grow: 1;
+}
+.rank-card__features li {
+  font-size: 12px;
+  line-height: 1.4;
+  opacity: 0.9;
+  padding-left: 16px;
+  position: relative;
+}
+.rank-card__features li::before {
+  content: "✦";
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 10px;
+}
+
 .rank-card__tag {
   align-self: flex-start;
   font-family: var(--font-pixel);
@@ -584,6 +608,13 @@ ul { list-style: none; }
 .rank-card--juara   { border-color: var(--gold-b); background: var(--gold-f); }
 .rank-card--fav     { border-color: var(--blue-b); background: var(--blue-f); }
 .rank-card--elite   { border-color: var(--red-b); background: var(--red-f); }
+
+.rank-card--osis .rank-card__features li::before    { color: var(--purple-b); }
+.rank-card--unggul .rank-card__features li::before  { color: var(--purple2-b); }
+.rank-card--teladan .rank-card__features li::before { color: var(--green-b); }
+.rank-card--juara .rank-card__features li::before   { color: var(--gold-b); }
+.rank-card--fav .rank-card__features li::before     { color: var(--blue-b); }
+.rank-card--elite .rank-card__features li::before   { color: var(--red-b); }
 
 .rank-card--osis:hover    { box-shadow: 0 10px 24px rgba(180,140,240,0.35); }
 .rank-card--unggul:hover  { box-shadow: 0 10px 24px rgba(138,92,214,0.35); }
@@ -616,8 +647,10 @@ ul { list-style: none; }
   border-radius: var(--radius-sm);
   background: rgba(0,0,0,0.18);
   display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
 }
 .kelas-card__photo span { font-size: 10px; color: rgba(255,255,255,0.55); }
+.kelas-card__photo img { width: 100%; height: 100%; object-fit: cover; }
 
 .kelas-card__body { padding: 0 14px 16px; display: flex; flex-direction: column; gap: 8px; color: #F1E9E8; }
 
