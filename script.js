@@ -116,7 +116,7 @@ if (devSkinCanvas) {
     // Fokusin kamera PERSIS ke kepala (bukan ke tengah badan yang udah disembunyiin).
     // Kalau kepala masih kepotong/keliatan cuma sedikit, coba naik-turunin angka HEAD_Y ini
     // sedikit-sedikit (misal 20, 22, 26, 28) sampai pas penuh di kotak.
-    const HEAD_Y = 23;
+    const HEAD_Y = 19;
     viewer.camera.position.set(0, HEAD_Y, 12);
     viewer.controls.target.set(0, HEAD_Y, 0);
     viewer.camera.lookAt(0, HEAD_Y, 0);
