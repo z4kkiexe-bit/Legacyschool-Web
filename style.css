@@ -752,7 +752,7 @@ ul { list-style: none; }
 .footer { background: var(--red-deep-2); color: rgba(255,255,255,0.8); }
 .footer__inner { text-align: center; padding: 28px 24px; font-size: 13px; }
 .footer__inner p { margin: 4px 0; }
-.footer__inner strong { color: #fff; }
+.footer__inner strong { color: none; }
 
 /* ===== responsive ===== */
 @media (max-width: 980px) {
