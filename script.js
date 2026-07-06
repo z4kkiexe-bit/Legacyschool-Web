@@ -105,9 +105,6 @@ if (devSkinCanvas) {
     viewer.controls.enableRotate = false;
     viewer.controls.enablePan = false;
     viewer.autoRotate = false;
-    viewer.zoom = 1.7; // zoom in biar kepala kelihatan penuh di kotak kecil
-    viewer.camera.position.set(0, 2, 20); // fokus kamera sejajar kepala
-
     // sembunyiin badan/tangan/kaki, sisain kepala doang
     const { skin } = viewer.playerObject;
     skin.body.visible = false;
@@ -115,6 +112,16 @@ if (devSkinCanvas) {
     skin.rightArm.visible = false;
     skin.leftLeg.visible = false;
     skin.rightLeg.visible = false;
+
+    // Fokusin kamera PERSIS ke kepala (bukan ke tengah badan yang udah disembunyiin).
+    // Kalau kepala masih kepotong/keliatan cuma sedikit, coba naik-turunin angka HEAD_Y ini
+    // sedikit-sedikit (misal 20, 22, 26, 28) sampai pas penuh di kotak.
+    const HEAD_Y = 20;
+    viewer.camera.position.set(0, HEAD_Y, 12);
+    viewer.controls.target.set(0, HEAD_Y, 0);
+    viewer.camera.lookAt(0, HEAD_Y, 0);
+    viewer.controls.update();
+    viewer.zoom = 1;
 
     // animasi noleh halus (lerp) ke arah target tiap hover, bukan snap langsung
     let targetY = 0;
